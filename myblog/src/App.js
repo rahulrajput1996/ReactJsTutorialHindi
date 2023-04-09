@@ -9,6 +9,7 @@ import './App.css';
 // import PropsInFunctional from './PropsInFunctional';
 import React, { useState } from 'react';
 import FirstLifeCycleConstructor from './FirstLifeCycleConstructor';
+import ApplyuseEffect from './ApplyuseEffect';
 // import PropsInClass from './PropsInClass';
 // import GetInputBox from './GetInputBox';
 // import HideShowToggle from './HideShowToggle';
@@ -30,13 +31,16 @@ function App() {
   //   alert("i am passed from parent component to child component")
   // }
   const [email, setemail] = useState("rahul@gmail.com");
-  const [show, setshow] = useState(true)
+  const [show, setshow] = useState(true);
+  const [data, setData] = useState(10);
   return (
     <div className="App">
       {show ? <FirstLifeCycleConstructor mydata={email} /> : ""}
 
       <button onClick={() => { setemail("ashish@gmail.com") }}>change email</button>
       <button onClick={() => { setshow(!show) }}>Toggle Component</button>
+      <ApplyuseEffect mydata={data} />
+      <button onClick={() => { setData(data + 5) }}>change data</button>
       {/* <Form />
       <Myfile1 />
       <Myfile2 />
