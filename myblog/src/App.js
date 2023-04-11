@@ -10,6 +10,10 @@ import './App.css';
 import React, { useState } from 'react';
 import FirstLifeCycleConstructor from './FirstLifeCycleConstructor';
 import ApplyuseEffect from './ApplyuseEffect';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Mycompoent from './components/Mycompoent';
 // import PropsInClass from './PropsInClass';
 // import GetInputBox from './GetInputBox';
 // import HideShowToggle from './HideShowToggle';
@@ -41,6 +45,10 @@ function App() {
       <button onClick={() => { setshow(!show) }}>Toggle Component</button>
       <ApplyuseEffect mydata={data} />
       <button onClick={() => { setData(data + 5) }}>change data</button>
+      <Navbar />
+      <Header />
+      <Footer />
+      <Mycompoent />
       {/* <Form />
       <Myfile1 />
       <Myfile2 />
