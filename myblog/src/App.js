@@ -7,7 +7,12 @@ import './App.css';
 // import StateInFunctionComponent from './StateInFunctionComponent';
 // import StateInClassComponent from './StateInClassComponent';
 // import PropsInFunctional from './PropsInFunctional';
-import React, { useState } from 'react';
+import React, { useState, useMemo, useRef } from "react"
+import Userefcomp from './components/Userefcomp';
+import Usereffunctional from './components/Usereffunctional';
+import Forwardrefcomp from './components/Forwardrefcomp';
+import Highordercomponent from './components/Highordercomponent';
+import Controllled from './components/Controllled';
 // import FirstLifeCycleConstructor from './FirstLifeCycleConstructor';
 // import ApplyuseEffect from './ApplyuseEffect';
 // import Footer from './components/Footer';
@@ -20,11 +25,33 @@ import React, { useState } from 'react';
 // import ConditionalRendering from './ConditionalRendering';
 // import PassFunctionAsProp from './PassFunctionAsProp';
 // import Form from './Form';
-import Table from 'react-bootstrap/Table';
-import Reuse from './components/Reuse';
-import Purecomponent from './components/Purecomponent';
-import Senddatafromchildtoparent from './components/Senddatafromchildtoparent';
+// import Table from 'react-bootstrap/Table';
+// import Reuse from './components/Reuse';
+// import Purecomponent from './components/Purecomponent';
+// import Senddatafromchildtoparent from './components/Senddatafromchildtoparent';
 function App() {
+  const [count, setcount] = useState(0);
+  const [rs, setrs] = useState(0);
+
+  //It will run only when count state changes
+  const myfun = useMemo(() => {
+    console.log("hi");
+    return 10;
+    // eslint-disable-next-line
+  }, [count]);
+
+  //It will run only when rs state changes
+  useMemo(() => {
+    console.log("second");
+    // eslint-disable-next-line
+  }, [rs]);
+
+  // use of forward ref
+  const mycustomref = useRef(null);
+  const myforwardref = () => {
+    mycustomref.current.style.backgroundColor = "purple";
+    mycustomref.current.focus()
+  }
   // const [address, setAddress] = useState("asgarpur");
   // const changeAddress = () => {
   //   if (address === "asgarpur") {
@@ -40,45 +67,64 @@ function App() {
   // const [email, setemail] = useState("rahul@gmail.com");
   // const [show, setshow] = useState(true);
   // const [data, setData] = useState(10);
-  let myarr = [
-    {
-      name: "rahul", email: "rahul@gmail.com", mobile: "7060810244",
-      address: [
-        { vill: "asgarpur1", city: "bijnor2" },
-        { vill: "asgarpur3", city: "bijnor4" }
-      ]
-    },
-    {
-      name: "ashish", email: "ashish@gmail.com", mobile: "8060810244",
-      address: [
-        { vill: "asgarpur5", city: "bijnor6" },
-        { vill: "asgarpur7", city: "bijnor8" },
-      ]
-    },
-    {
-      name: "krishna", email: "krishna@gmail.com", mobile: "9060810244",
-      address: [
-        { vill: "asgarpur9", city: "bijnor0" },
-        { vill: "asgarpur4", city: "bijnor5" },
-      ]
-    },
-    {
-      name: "radha", email: "radha@gmail.com", mobile: "6060810244",
-      address: [
-        { vill: "asgarpur5", city: "bijnor2" },
-        { vill: "asgarpur2", city: "bijnor7" },
-      ]
-    },
-  ]
-  let myarr2 = ["rahul", "soni", "vipin", "anita"]
-  const [data, setdata] = useState(1);
-  const myalert = (a) => {
-    console.log("ji");
-    setdata(a)
-  }
+  // let myarr = [
+  //   {
+  //     name: "rahul", email: "rahul@gmail.com", mobile: "7060810244",
+  //     address: [
+  //       { vill: "asgarpur1", city: "bijnor2" },
+  //       { vill: "asgarpur3", city: "bijnor4" }
+  //     ]
+  //   },
+  //   {
+  //     name: "ashish", email: "ashish@gmail.com", mobile: "8060810244",
+  //     address: [
+  //       { vill: "asgarpur5", city: "bijnor6" },
+  //       { vill: "asgarpur7", city: "bijnor8" },
+  //     ]
+  //   },
+  //   {
+  //     name: "krishna", email: "krishna@gmail.com", mobile: "9060810244",
+  //     address: [
+  //       { vill: "asgarpur9", city: "bijnor0" },
+  //       { vill: "asgarpur4", city: "bijnor5" },
+  //     ]
+  //   },
+  //   {
+  //     name: "radha", email: "radha@gmail.com", mobile: "6060810244",
+  //     address: [
+  //       { vill: "asgarpur5", city: "bijnor2" },
+  //       { vill: "asgarpur2", city: "bijnor7" },
+  //     ]
+  //   },
+  // ]
+  // let myarr2 = ["rahul", "soni", "vipin", "anita"]
+  // const [data, setdata] = useState(1);
+  // const myalert = (a) => {
+  //   console.log("ji");
+  //   setdata(a)
+  // }
   return (
     <div className="App">
-      <div>CountData is {data}</div>
+      <div>{myfun}</div>
+      <h1>Count is {count}</h1>
+      <h1>Rs. is {rs}</h1>
+      <button onClick={() => { setcount(count + 1) }}>Change count</button>
+      <button onClick={() => { setrs(rs + 10) }}>Change rs</button>
+      <Userefcomp />
+      <Usereffunctional />
+
+      {/*forward ref when we pass ref to other component*/}
+      <Forwardrefcomp ref={mycustomref} />
+      <button onClick={myforwardref}>useForwardRef</button>
+
+      {/*HighOrderComponenet are those which take a component as input and returns a component in output*/}
+      <Highordercomponent mycmp={<Mynavbarred />} />
+      <Highordercomponent mycmp={<Mynavbargreen />} />
+
+      {/*controlled and uncontrolled Componenet*/}
+      <Controllled />
+
+      {/* <div>CountData is {data}</div>
       <Senddatafromchildtoparent myfun={myalert} />
       <Purecomponent />
       {myarr2.map((ele, i) => {
@@ -124,7 +170,7 @@ function App() {
             )
           })
         }
-      </Table >
+      </Table > */}
       {/* {show ? <FirstLifeCycleConstructor mydata={email} /> : ""}
 
       <button onClick={() => { setemail("ashish@gmail.com") }}>change email</button>
@@ -169,6 +215,17 @@ function App() {
       </header> */}
     </div>
   );
+}
+
+function Mynavbarred() {
+  return (
+    <div style={{ color: "red" }}>Mynavbarred</div>
+  )
+}
+function Mynavbargreen() {
+  return (
+    <div style={{ color: "green" }}>Mynavbargreen</div>
+  )
 }
 
 export default App;
