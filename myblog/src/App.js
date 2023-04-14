@@ -1,5 +1,17 @@
 // import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import About from './components/About';
+import Contact from './components/Contact';
+import Home from './components/Home';
+import Pagenotfound from './components/Pagenotfound';
+import Company from './components/Company';
+import Youtube from './components/Youtube';
+import Countpage from './components/Countpage';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import Protected from './components/Protected';
 // import { Myfile1, Myfile2 } from "./Myfile"
 // import Twofunctioninsamefile from './Twofunctioninsamefile';
 // import ReactwithoutJSX from './ReactwithoutJSX';
@@ -7,12 +19,12 @@ import './App.css';
 // import StateInFunctionComponent from './StateInFunctionComponent';
 // import StateInClassComponent from './StateInClassComponent';
 // import PropsInFunctional from './PropsInFunctional';
-import React, { useState, useMemo, useRef } from "react"
-import Userefcomp from './components/Userefcomp';
-import Usereffunctional from './components/Usereffunctional';
-import Forwardrefcomp from './components/Forwardrefcomp';
-import Highordercomponent from './components/Highordercomponent';
-import Controllled from './components/Controllled';
+// import React, { useState, useMemo, useRef } from "react"
+// import Userefcomp from './components/Userefcomp';
+// import Usereffunctional from './components/Usereffunctional';
+// import Forwardrefcomp from './components/Forwardrefcomp';
+// import Highordercomponent from './components/Highordercomponent';
+// import Controllled from './components/Controllled';
 // import FirstLifeCycleConstructor from './FirstLifeCycleConstructor';
 // import ApplyuseEffect from './ApplyuseEffect';
 // import Footer from './components/Footer';
@@ -30,28 +42,28 @@ import Controllled from './components/Controllled';
 // import Purecomponent from './components/Purecomponent';
 // import Senddatafromchildtoparent from './components/Senddatafromchildtoparent';
 function App() {
-  const [count, setcount] = useState(0);
-  const [rs, setrs] = useState(0);
+  // const [count, setcount] = useState(0);
+  // const [rs, setrs] = useState(0);
 
   //It will run only when count state changes
-  const myfun = useMemo(() => {
-    console.log("hi");
-    return 10;
-    // eslint-disable-next-line
-  }, [count]);
+  // const myfun = useMemo(() => {
+  //   console.log("hi");
+  //   return 10;
+  // eslint-disable-next-line
+  // }, [count]);
 
   //It will run only when rs state changes
-  useMemo(() => {
-    console.log("second");
-    // eslint-disable-next-line
-  }, [rs]);
+  // useMemo(() => {
+  //   console.log("second");
+  // eslint-disable-next-line
+  // }, [rs]);
 
   // use of forward ref
-  const mycustomref = useRef(null);
-  const myforwardref = () => {
-    mycustomref.current.style.backgroundColor = "purple";
-    mycustomref.current.focus()
-  }
+  // const mycustomref = useRef(null);
+  // const myforwardref = () => {
+  //   mycustomref.current.style.backgroundColor = "purple";
+  //   mycustomref.current.focus()
+  // }
   // const [address, setAddress] = useState("asgarpur");
   // const changeAddress = () => {
   //   if (address === "asgarpur") {
@@ -105,24 +117,41 @@ function App() {
   // }
   return (
     <div className="App">
-      <div>{myfun}</div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Protected mycomp={<Home />} />} />
+          <Route path="/about/"  >
+            <Route index={true} element={<About />} />
+            <Route path="company" element={<Company />} />
+            <Route path="youtube" element={<Youtube />} />
+          </Route>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact/:id" element={<Countpage />} />
+          <Route path="/blog" element={<Navigate to="/about" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Protected mycomp={<Logout />} />} />
+          <Route path="/*" element={<Pagenotfound />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <div>{myfun}</div>
       <h1>Count is {count}</h1>
       <h1>Rs. is {rs}</h1>
       <button onClick={() => { setcount(count + 1) }}>Change count</button>
       <button onClick={() => { setrs(rs + 10) }}>Change rs</button>
       <Userefcomp />
-      <Usereffunctional />
+      <Usereffunctional /> */}
 
       {/*forward ref when we pass ref to other component*/}
-      <Forwardrefcomp ref={mycustomref} />
-      <button onClick={myforwardref}>useForwardRef</button>
+      {/* <Forwardrefcomp ref={mycustomref} />
+      <button onClick={myforwardref}>useForwardRef</button> */}
 
       {/*HighOrderComponenet are those which take a component as input and returns a component in output*/}
-      <Highordercomponent mycmp={<Mynavbarred />} />
-      <Highordercomponent mycmp={<Mynavbargreen />} />
+      {/* <Highordercomponent mycmp={<Mynavbarred />} />
+      <Highordercomponent mycmp={<Mynavbargreen />} /> */}
 
       {/*controlled and uncontrolled Componenet*/}
-      <Controllled />
+      {/* <Controllled /> */}
 
       {/* <div>CountData is {data}</div>
       <Senddatafromchildtoparent myfun={myalert} />
@@ -217,15 +246,15 @@ function App() {
   );
 }
 
-function Mynavbarred() {
-  return (
-    <div style={{ color: "red" }}>Mynavbarred</div>
-  )
-}
-function Mynavbargreen() {
-  return (
-    <div style={{ color: "green" }}>Mynavbargreen</div>
-  )
-}
+// function Mynavbarred() {
+//   return (
+//     <div style={{ color: "red" }}>Mynavbarred</div>
+//   )
+// }
+// function Mynavbargreen() {
+//   return (
+//     <div style={{ color: "green" }}>Mynavbargreen</div>
+//   )
+// }
 
 export default App;

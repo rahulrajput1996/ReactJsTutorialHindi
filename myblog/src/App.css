@@ -32,7 +32,34 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.mynav {
+  cursor: pointer;
+}
+
+.mynav ul {
+  display: flex;
+}
+
+.mynav ul li {
+  list-style: none;
+  margin: 30px;
+}
+
+.abc {
+  color: red;
+}
+
+.mylink {
+  text-decoration: none;
+  margin: 20px;
+}
+
+.active {
+  color: rgb(255, 0, 0);
 }
