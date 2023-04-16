@@ -12,6 +12,7 @@ import Countpage from './components/Countpage';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Protected from './components/Protected';
+import Mystate from './components/Mystate';
 // import { Myfile1, Myfile2 } from "./Myfile"
 // import Twofunctioninsamefile from './Twofunctioninsamefile';
 // import ReactwithoutJSX from './ReactwithoutJSX';
@@ -118,6 +119,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Mystate />
         <Navbar />
         <Routes>
           <Route path="/" element={<Protected mycomp={<Home />} />} />
